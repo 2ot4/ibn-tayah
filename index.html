@@ -3,34 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مطعم وكافيه ابن تايه - Ibn Tayah</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <title>مطعم وكافيه ابن تايه</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --gold-primary: #d4af37;
+            --gold: #d4af37;
             --gold-light: #fcf6ba;
-            --gold-dark: #aa7c11;
-            --bg-dark: #0a0a0a;
-            --card-bg: #141414;
-            --card-border: rgba(212, 175, 55, 0.3);
-            --text-light: #f8fafc;
-            --text-muted: #a3a3a3;
+            --bg: #0a0a0a;
+            --card: #141414;
+            --border: rgba(212, 175, 55, 0.3);
+            --text: #f8fafc;
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body { background: var(--bg); color: var(--text); padding-bottom: 110px; }
+        header { background: #111; padding: 20px; text-align: center; border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 100; }
+        h1 { color: var(--gold); font-size: 1.8rem; font-weight: 900; }
+        p.sub { color: var(--gold-light); font-size: 0.8rem; opacity: 0.8; margin-top: 4px; }
+        .container { max-width: 800px; margin: 0 auto; padding: 15px; }
+        .sec-title { color: var(--gold); font-size: 1.2rem; margin: 20px 0 10px; border-bottom: 1px solid var(--border); padding-bottom: 5px; display: flex; align-items: center; gap: 8px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 10px; text-align: center; }
+        .img-box { width: 100%; height: 100px; border-radius: 10px; overflow: hidden; margin-bottom: 8px; border: 1px solid rgba(212,175,55,0.2); }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .title { font-weight: 700; font-size: 0.9rem; margin-bottom: 4px; }
+        .price { color: var(--gold); font-weight: 800; font-size: 0.85rem; margin-bottom: 8px; }
+        .btn-add { background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 6px 10px; border-radius: 20px; width: 100%; font-weight: 700; font-size: 0.8rem; cursor: pointer; }
+        .btn-add:active { background: var(--gold); color: #000; }
         
-        body { 
-            background-color: var(--bg-dark); 
-            color: var(--text-light); 
-            padding-bottom: 120px;
+        /* السلة الفاخرة */
+        .cart-bar { position: fixed; bottom: 15px; left: 15px; right: 15px; max-width: 770px; margin: 0 auto; background: #141414; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--gold); border-radius: 40px; z-index: 100; box-shadow: 0 8px 20px rgba(0,0,0,0.9); }
+        .cart-icon { position: relative; color: var(--gold); font-size: 1.3rem; }
+        .badge { position: absolute; top: -8px; right: -10px; background: #ef4444; color: #fff; font-size: 0.65rem; padding: 2px 5px; border-radius: 10px; font-weight: bold; }
+        .btn-send { background: #25d366; color: #fff; border: none; padding: 8px 18px; border-radius: 20px; font-weight: 700; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+        
+        /* نافذة السلة التفاعلية */
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); z-index: 200; justify-content: center; align-items: flex-end; }
+        .modal.active { display: flex; }
+        .modal-body { background: #141414; border: 1px solid var(--gold); border-radius: 20px 20px 0 0; width: 100%; max-width: 800px; max-height: 65vh; padding: 18px; overflow-y: auto; }
+        .modal-head { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 10px; }
+        .row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .ctrl { display: flex; align-items: center; gap: 6px; }
+        .q-btn { background: var(--border); color: var(--gold); border: none; width: 26px; height: 26px; border-radius: 50%; font-weight: bold; cursor: pointer; }
+        .del-btn { color: #ef4444; background: none; border: none; font-size: 1rem; cursor: pointer; margin-right: 8px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>مطعم وكافيه ابن تايه</h1>
+        <p class="sub">BAGHDAD • LUXURY MENU</p>
+    </header>
+
+    <div class="container">
+        <!-- قسم الوجبات -->
+        <div class="sec-title"><i class="fas fa-crown"></i> الوجبات الرئيسية</div>
+        <div class="grid">
+            <div class="card">
+                <div class="img-box"><img src="https://media.giphy.com/media/xT1R9P8658E8u3iC52/giphy.gif" alt="قص"></div>
+                <div class="title">قص لحم عراقي</div>
+                <div class="price">8,000 د.ع</div>
+                <button class="btn-add" onclick="add('قص لحم عراقي', 8000)">+ إضافة</button>
+            </div>
+            <div class="card">
+                <div class="img-box"><img src="https://media.giphy.com/media/l0HlA1H2D1aJ2RkSA/giphy.gif" alt="برغر"></div>
+                <div class="title">برغر لحم خاص</div>
+                <div class="price">6,000 د.ع</div>
+                <button class="btn-add" onclick="add('برغر لحم خاص', 6000)">+ إضافة</button>
+            </div>
+            <div class="card">
+                <div class="img-box"><img src="https://media.giphy.com/media/3o7TKsA9wL9y5hGeq4/giphy.gif" alt="شاورما"></div>
+                <div class="title">شاورما دجاج</div>
+                <div class="price">5,000 د.ع</div>
+                <button class="btn-add" onclick="add('شاورما دجاج', 5000)">+ إضافة</button>
+            </div>
+        </div>
+
+        <!-- قسم المشروبات -->
+        <div class="sec-title"><i class="fas fa-mug-hot"></i> الكافيه والمشروبات</div>
+        <div class="grid">
+            <div class="card">
+                <div class="img-box"><img src="https://media.giphy.com/media/3o85xGocUH8RYoDKKs/giphy.gif" alt="قهوة"></div>
+                <div class="title">قهوة تركية فاخرة</div>
+                <div class="price">2,000 د.ع</div>
+                <button class="btn-add" onclick="add('قهوة تركية فاخرة', 2000)">+ إضافة</button>
+            </div>
+            <div class="card">
+                <div class="img-box"><img src="https://media.giphy.com/media/l41Yf106T6XlP2DBe/giphy.gif" alt="عصير"></div>
+                <div class="title">عصير برتقال طازج</div>
+                <div class="price">3,000 د.ع</div>
+                <button class="btn-add" onclick="add('عصير برتقال طازج', 3000)">+ إضافة</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- شريط السلة -->
+    <div class="cart-bar" onclick="toggleM()">
+        <div style="display:flex; align-items:center; gap:10px;">
+            <div class="cart-icon"><i class="fas fa-shopping-bag"></i><span class="badge" id="cnt">0</span></div>
+            <div>
+                <div style="font-size:0.7rem; color:#aaa;">اضغط للتعديل</div>
+                <div style="color:var(--gold-light); font-weight:bold;" id="tot">0 د.ع</div>
+            </div>
+        </div>
+        <button class="btn-send" onclick="event.stopPropagation(); send()"><i class="fab fa-whatsapp"></i> إرسال</button>
+    </div>
+
+    <!-- النافذة التفاعلية -->
+    <div class="modal" id="mdl" onclick="toggleM()">
+        <div class="modal-body" onclick="event.stopPropagation()">
+            <div class="modal-head">
+                <h3 style="color:var(--gold); font-size:1.1rem;">قائمة طلباتك</h3>
+                <span onclick="toggleM()" style="font-size:1.4rem; cursor:pointer; color:#aaa;">&times;</span>
+            </div>
+            <div id="items"><p style="text-align:center; color:#888; padding:15px;">السلة فارغة حالياً</p></div>
+        </div>
+    </div>
+
+    <script>
+        let cart = {};
+        const phone = "9647700000000"; // اكتب رقم الواتساب هنا
+
+        function add(n, p) {
+            cart[n] = cart[n] ? { p: p, q: cart[n].q + 1 } : { p: p, q: 1 };
+            upd();
         }
 
-        /* الهيدر الملكي */
-        header { 
-            background: #111111; 
-            padding: 20px 15px; 
-            text-align: center; 
-            border-bottom: 1px solid var(--gold-primary); 
-            position: sticky; 
-            top: 0; 
+        function chg(n, d) {
+            if (cart[n]) {
+                cart[n].q += d;
+                if (cart[n].q <= 0) delete cart[n];
+            }
+            upd();
+        }
+
+        function del(n) {
+            delete cart[n];
+            upd();
+        }
+
+        function upd() {
+            let t = 0, c = 0, box = document.getElementById('items');
+            box.innerHTML = '';
+            let keys = Object.keys(cart);
+
+            if (keys.length === 0) {
+                box.innerHTML = '<p style="text-align:center; color:#888; padding:15px;">السلة فارغة حالياً</p>';
+            } else {
+                keys.forEach(k => {
+                    let item = cart[k];
+                    let sum = item.p * item.q;
+                    t += sum; c += item.q;
+                    box.innerHTML += `
+                        <div class="row">
+                            <div>
+                                <div style="font-weight:bold;">${k}</div>
+                                <div style="font-size:0.8rem; color:var(--gold);">${sum.toLocaleString()} د.ع</div>
+                            </div>
+                            <div class="ctrl">
+                                <button class="q-btn" onclick="chg('${k}', -1)">-</button>
+                                <span>${item.q}</span>
+                                <button class="q-btn" onclick="chg('${k}', 1)">+</button>
+                                <button class="del-btn" onclick="del('${k}')"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </div>`;
+                });
+            }
+            document.getElementById('tot').innerText = t.toLocaleString() + ' د.ع';
+            document.getElementById('cnt').innerText = c;
+        }
+
+        function toggleM() {
+            document.getElementById('mdl').classList.toggle('active');
+        }
+
+        function send() {
+            let keys = Object.keys(cart);
+            if (keys.length === 0) return alert("السلة فارغة!");
+            let t = 0, msg = "👑 *طلب جديد من مطعم وكافيه ابن تايه* 👑\n\n";
+            keys.forEach(k => {
+                let sum = cart[k].p * cart[k].q;
+                t += sum;
+                msg += `• ${k} (العدد: ${cart[k].q}) - ${sum.toLocaleString()} د.ع\n`;
+            });
+            msg += `\n💰 *المجموع الكلي:* ${t.toLocaleString()} د.ع`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+    </script>
+</body>
+</html>
