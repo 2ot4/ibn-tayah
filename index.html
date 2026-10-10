@@ -338,6 +338,17 @@
             border-bottom: 1px solid var(--border-color);
         }
 
+        .delivery-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            margin-top: 10px;
+            border-top: 1px dashed var(--border-color);
+            border-bottom: 1px dashed var(--border-color);
+            font-size: 0.9rem;
+        }
+
         .control-btns { display: flex; align-items: center; gap: 8px; }
         .qty-btn {
             background: rgba(255, 215, 0, 0.2);
@@ -451,7 +462,7 @@
                 <span class="cart-badge" id="cartBadge">0</span>
             </div>
             <div>
-                <div style="font-size: 0.7rem; color: var(--text-muted);">اضغط لتعديل السلة</div>
+                <div style="font-size: 0.7rem; color: var(--text-muted);">المجموع + التوصيل</div>
                 <div class="shiny-gold-text" id="cartTotalSum">0 د.ع</div>
             </div>
         </div>
@@ -474,6 +485,7 @@
     <script>
         let myCart = {};
         const whatsappNumber = "9647776651117"; // اكتب رقم الواتساب الخاص بك هنا
+        const deliveryFee = 1000; // اجور التوصيل الثابتة
 
         /* نظام التبديل بين الوضع الداكن والنهاري */
         function toggleTheme() {
@@ -520,7 +532,7 @@
         }
 
         function refreshCartUI() {
-            let totalSum = 0;
+            let foodTotal = 0;
             let totalCount = 0;
             let listContainer = document.getElementById('cartItemsList');
             listContainer.innerHTML = '';
@@ -529,11 +541,13 @@
 
             if (itemsKeys.length === 0) {
                 listContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted); padding: 20px;">السلة فارغة حالياً</p>';
+                document.getElementById('cartTotalSum').innerText = '0 د.ع';
+                document.getElementById('cartBadge').innerText = '0';
             } else {
                 itemsKeys.forEach(name => {
                     let item = myCart[name];
                     let sum = item.price * item.qty;
-                    totalSum += sum;
+                    foodTotal += sum;
                     totalCount += item.qty;
 
                     listContainer.innerHTML += `
@@ -550,10 +564,23 @@
                             </div>
                         </div>`;
                 });
-            }
 
-            document.getElementById('cartTotalSum').innerText = totalSum.toLocaleString() + ' د.ع';
-            document.getElementById('cartBadge').innerText = totalCount;
+                // إضافة سطر أجور التوصيل والمجموع النهائي
+                let grandTotal = foodTotal + deliveryFee;
+                listContainer.innerHTML += `
+                    <div class="delivery-row">
+                        <div><i class="fas fa-motorcycle" style="color:var(--primary-gold);"></i> أجور التوصيل:</div>
+                        <div style="font-weight: bold;">${deliveryFee.toLocaleString()} د.ع</div>
+                    </div>
+                    <div style="display:flex; justify-between; align-items:center; padding-top:12px; font-weight:bold;">
+                        <span>المجموع الكلي مع التوصيل:</span>
+                        <span class="shiny-gold-text" style="font-size:1.1rem;">${grandTotal.toLocaleString()} د.ع</span>
+                    </div>
+                `;
+
+                document.getElementById('cartTotalSum').innerText = grandTotal.toLocaleString() + ' د.ع';
+                document.getElementById('cartBadge').innerText = totalCount;
+            }
         }
 
         function toggleCart() {
@@ -582,17 +609,20 @@
             let itemsKeys = Object.keys(myCart);
             if (itemsKeys.length === 0) return alert("السلة فارغة! يرجى إضافة وجبات أولاً.");
 
-            let totalSum = 0;
+            let foodTotal = 0;
             let message = "👑 *طلب جديد من مطعم الشيف ابن تايه* 👑\n\n";
             message += `*قائمة الوجبات:*\n`;
 
             itemsKeys.forEach(name => {
                 let item = myCart[name];
                 let sum = item.price * item.qty;
-                totalSum += sum;
+                foodTotal += sum;
                 message += `• ${name} (العدد: ${item.qty}) - ${sum.toLocaleString()} د.ع\n`;
             });
-            message += `\n💰 *المجموع الكلي:* ${totalSum.toLocaleString()} د.ع`;
+
+            let grandTotal = foodTotal + deliveryFee;
+            message += `\n🛵 *أجور التوصيل:* ${deliveryFee.toLocaleString()} د.ع`;
+            message += `\n💰 *المجموع النهائي:* ${grandTotal.toLocaleString()} د.ع`;
             
             window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
         }
