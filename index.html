@@ -154,7 +154,7 @@
         }
         .btn-add-item:active { background: linear-gradient(135deg, #bf953f, #fcf6ba, #aa7c11); color: #000; }
 
-        /* تصميم قسم الخصومات الجديد والمطابق لتطبيقات التوصيل */
+        /* قسم الخصومات المعدل بدون كافيه وعروض خاصة */
         .discounts-section {
             text-align: center;
             padding: 30px 15px;
@@ -165,12 +165,12 @@
         }
 
         .discount-tags {
-            display: flex; gap: 8px; justify-content: center; overflow-x: auto;
+            display: flex; gap: 10px; justify-content: center;
             padding-bottom: 15px; margin-bottom: 20px;
         }
         .d-tag {
             background: var(--search-bg); border: 1px solid var(--border-color);
-            padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; color: var(--text-main);
+            padding: 6px 18px; border-radius: 20px; font-size: 0.85rem; color: var(--text-main);
             cursor: pointer; white-space: nowrap;
         }
         .d-tag.active { background: var(--primary-gold); color: #000; font-weight: bold; }
@@ -252,10 +252,10 @@
         <input type="text" id="searchInput" class="search-box" placeholder="🔍 ابحث عن وجبتك أو مشروبك المفضل..." onkeyup="filterMenu()">
     </div>
 
-    <!-- شريط الأقسام السريع مع قسم الخصومات -->
+    <!-- شريط الأقسام السريع -->
     <div class="category-bar">
         <button class="cat-item active" onclick="gotoSec('meals')"><i class="fas fa-utensils"></i> الوجبات الرئيسية</button>
-        <button class="cat-item" onclick="gotoSec('cafe')"><i class="fas fa-coffee"></i> الكافيه والمشروبات</button>
+
         <button class="cat-item" onclick="gotoSec('discounts')"><i class="fas fa-tags"></i> الخصومات والقسائم</button>
     </div>
 
@@ -289,48 +289,20 @@
             </div>
         </div>
 
-        <!-- قسم المشروبات -->
-        <div id="cafe" class="menu-section">
-            <div class="section-header shiny-gold-text"><i class="fas fa-coffee"></i> الكافيه والمشروبات</div>
-            <div class="grid-menu">
-                <div class="food-card" data-name="قهوة تركية فاخرة">
-                    <div class="img-container"><img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400" alt="قهوة"></div>
-                    <div class="food-name">قهوة تركية فاخرة</div>
-                    <div class="food-desc">قهوة محمصة ومحضرة على الأصول</div>
-                    <div class="food-price shiny-gold-text">2,000 د.ع</div>
-                    <button class="btn-add-item" onclick="addItem('قهوة تركية فاخرة', 2000)">+ إضافة للطلب</button>
-                </div>
-                <div class="food-card" data-name="عصير برتقال طازج">
-                    <div class="img-container"><img src="https://images.unsplash.com/photo-1613478223719-2ab802602423?w=400" alt="عصير"></div>
-                    <div class="food-name">عصير برتقال طازج</div>
-                    <div class="food-desc">عصير طبيعي 100% بدون إضافات</div>
-                    <div class="food-price shiny-gold-text">3,000 د.ع</div>
-                    <button class="btn-add-item" onclick="addItem('عصير برتقال طازج', 3000)">+ إضافة للطلب</button>
-                </div>
-                <div class="food-card" data-name="شاي عراقي مهيل">
-                    <div class="img-container"><img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=400" alt="شاي"></div>
-                    <div class="food-name">شاي عراقي مهيل</div>
-                    <div class="food-desc">شاي مع الهيل العراقي الأصيل</div>
-                    <div class="food-price shiny-gold-text">1,000 د.ع</div>
-                    <button class="btn-add-item" onclick="addItem('شاي عراقي مهيل', 1000)">+ إضافة للطلب</button>
-                </div>
-            </div>
-        </div>
 
-        <!-- قسم الخصومات والقسائم المصمم بأسلوب تطبيق بلي -->
+
+        <!-- قسم الخصومات والقسائم (الكل / طعام فقط) -->
         <div id="discounts" class="menu-section">
             <div class="section-header shiny-gold-text"><i class="fas fa-gift"></i> الخصومات والقسائم</div>
             
             <div class="discounts-section">
-                <!-- أزرار الفلاتر والتصنيفات -->
+                <!-- أزرار الفلاتر (تمت إزالة كافيه وعروض خاصة) -->
                 <div class="discount-tags">
                     <span class="d-tag">الكل</span>
                     <span class="d-tag active"><i class="fas fa-utensils"></i> طعام</span>
-                    <span class="d-tag"><i class="fas fa-coffee"></i> كافيه</span>
-                    <span class="d-tag"><i class="fas fa-bolt"></i> عروض خاصة</span>
                 </div>
 
-                <!-- صندوق الكنز والتصميم -->
+                <!-- صندوق الكنز -->
                 <div class="chest-box">
                     <i class="fas fa-box-open"></i>
                 </div>
