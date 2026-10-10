@@ -3,6 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- وسوم المعاينة للواتساب والتواصل الاجتماعي (Open Graph Meta Tags) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://2ot4.github.io/ibn-tayah/">
+    <meta property="og:title" content="مطعم الشيف ابن تايه | Ibn Tayah Menu">
+    <meta property="og:description" content="قائمة الطعام الرقمية والفاخرة لمطعم الشيف ابن تايه - بغداد. اطلب أشهى الوجبات والمشروبات مباشرة عبر الواتساب.">
+    <!-- رابط الصورة التي ستظهر مع الرابط عند الإرسال -->
+    <meta property="og:image" content="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&auto=format&fit=crop&q=80">
+    <meta property="og:image:width" content="600">
+    <meta property="og:image:height" content="315">
+
     <title>مطعم الشيف ابن تايه - Ibn Tayah</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -453,7 +464,7 @@
 
     <script>
         let myCart = {};
-        const whatsappNumber = "9647700000000"; // اكتب رقم الواتساب هنا
+        const whatsappNumber = "9647776651117"; // اكتب رقم الواتساب الخاص بك هنا
 
         /* نظام التبديل بين الوضع الداكن والنهاري */
         function toggleTheme() {
@@ -471,7 +482,6 @@
             }
         }
 
-        // استرجاع المظهر المحفوظ عند فتح الموقع
         window.onload = function() {
             const savedTheme = localStorage.getItem('ibn_theme') || 'dark';
             document.documentElement.setAttribute('data-theme', savedTheme);
