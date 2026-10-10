@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
+        /* الألوان الافتراضية (الوضع الداكن - Dark Mode) */
+        :root[data-theme="dark"] {
             --primary-gold: #d4af37;
             --light-gold: #fcf6ba;
             --dark-bg: #0a0a0a;
@@ -15,9 +16,24 @@
             --border-color: rgba(212, 175, 55, 0.25);
             --text-main: #ffffff;
             --text-muted: #a3a3a3;
+            --header-bg: rgba(18, 18, 18, 0.95);
+            --search-bg: #141414;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        /* الألوان (الوضع النهاري - Light Mode) */
+        :root[data-theme="light"] {
+            --primary-gold: #b89728;
+            --light-gold: #8a6f18;
+            --dark-bg: #f8f9fa;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --border-color: rgba(184, 151, 40, 0.3);
+            --text-main: #1a1a1a;
+            --text-muted: #666666;
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --search-bg: #ffffff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; transition: background 0.3s, color 0.3s; }
 
         body {
             background-color: var(--dark-bg);
@@ -50,7 +66,7 @@
 
         /* الهيدر العلوي */
         header {
-            background: rgba(18, 18, 18, 0.95);
+            background: var(--header-bg);
             backdrop-filter: blur(12px);
             padding: 18px 15px;
             text-align: center;
@@ -58,22 +74,41 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
+        .brand-info { text-align: right; flex-grow: 1; }
         .brand-title {
             color: var(--primary-gold);
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 900;
-            letter-spacing: 0.5px;
         }
-
         .brand-sub {
             color: var(--light-gold);
-            font-size: 0.8rem;
-            opacity: 0.8;
-            margin-top: 2px;
+            font-size: 0.75rem;
+            opacity: 0.85;
         }
+
+        /* زر تبديل الوضع (داكن / نهاري) */
+        .theme-toggle-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--primary-gold);
+            color: var(--primary-gold);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+        .theme-toggle-btn:active { transform: scale(0.9); }
 
         /* شريط البحث المباشر */
         .search-container {
@@ -83,30 +118,30 @@
         }
         .search-box {
             width: 100%;
-            background: #141414;
+            background: var(--search-bg);
             border: 1px solid var(--border-color);
             padding: 10px 15px;
             border-radius: 25px;
-            color: #fff;
+            color: var(--text-main);
             font-size: 0.85rem;
             outline: none;
-            transition: 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
         .search-box:focus {
             border-color: var(--primary-gold);
             box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
         }
 
-        /* شريط الأقسام السريع التفاعلي */
+        /* شريط الأقسام السريع */
         .category-bar {
             display: flex;
             gap: 10px;
             overflow-x: auto;
             padding: 12px 15px;
-            background: #121212;
+            background: var(--header-bg);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
-            top: 73px;
+            top: 77px;
             z-index: 99;
             scrollbar-width: none;
         }
@@ -125,16 +160,13 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         .cat-item.active, .cat-item:hover {
             background: var(--primary-gold);
-            color: #000;
+            color: #fff;
             border-color: var(--light-gold);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
         }
+        :root[data-theme="light"] .cat-item.active { color: #000; }
 
         .container { max-width: 800px; margin: 0 auto; padding: 15px; }
 
@@ -150,7 +182,7 @@
             gap: 8px;
         }
 
-        /* شبكة الكروت التفاعلية */
+        /* شبكة البطاقات */
         .grid-menu {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -163,17 +195,10 @@
             border-radius: 16px;
             padding: 10px;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
         }
-
-        .food-card:hover {
-            transform: translateY(-6px) scale(1.02);
-            border-color: var(--primary-gold);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.25);
-        }
+        .food-card:hover { transform: translateY(-4px); border-color: var(--primary-gold); }
 
         .img-container {
             width: 100%;
@@ -181,41 +206,13 @@
             border-radius: 12px;
             overflow: hidden;
             margin-bottom: 8px;
-            border: 1px solid rgba(212,175,55,0.15);
+            border: 1px solid var(--border-color);
         }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; }
 
-        .img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .food-card:hover .img-container img {
-            transform: scale(1.1);
-        }
-
-        .food-name {
-            font-size: 0.95rem;
-            font-weight: 700;
-            margin-bottom: 2px;
-        }
-
-        .food-desc {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-            line-height: 1.2;
-            height: 28px;
-            overflow: hidden;
-        }
-
-        .food-price {
-            color: var(--primary-gold);
-            font-size: 0.85rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
+        .food-name { font-size: 0.95rem; font-weight: 700; margin-bottom: 2px; }
+        .food-desc { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 6px; height: 28px; overflow: hidden; }
+        .food-price { color: var(--primary-gold); font-size: 0.85rem; font-weight: 800; margin-bottom: 10px; }
 
         .btn-add-item {
             background: transparent;
@@ -227,16 +224,11 @@
             font-weight: 700;
             font-size: 0.8rem;
             cursor: pointer;
-            transition: all 0.2s ease;
         }
+        .btn-add-item:active { background: var(--primary-gold); color: #fff; }
+        :root[data-theme="light"] .btn-add-item:active { color: #000; }
 
-        .btn-add-item:active {
-            transform: scale(0.92);
-            background: var(--primary-gold);
-            color: #000;
-        }
-
-        /* الشريط السفلي العائم والسلة */
+        /* شريط السلة السفلي */
         .floating-cart {
             position: fixed;
             bottom: 15px;
@@ -244,7 +236,7 @@
             right: 15px;
             max-width: 770px;
             margin: 0 auto;
-            background: rgba(22, 22, 22, 0.95);
+            background: var(--header-bg);
             backdrop-filter: blur(10px);
             border: 1px solid var(--primary-gold);
             border-radius: 40px;
@@ -253,9 +245,8 @@
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.9), 0 0 15px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
             cursor: pointer;
-            animation: pulseGlow 2.5s infinite;
         }
 
         .cart-details { display: flex; align-items: center; gap: 12px; }
@@ -284,26 +275,23 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            transition: transform 0.2s;
         }
-        .btn-send-whatsapp:hover { transform: scale(1.04); }
 
-        /* النافذة التفاعلية للسلة */
+        /* نافذة السلة */
         .cart-modal {
             display: none;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.85);
+            background: rgba(0,0,0,0.7);
             backdrop-filter: blur(6px);
             z-index: 200;
             justify-content: center;
             align-items: flex-end;
         }
-
         .cart-modal.active { display: flex; }
 
         .modal-box {
-            background: #141414;
+            background: var(--card-bg);
             border: 1px solid var(--primary-gold);
             border-radius: 24px 24px 0 0;
             width: 100%;
@@ -311,7 +299,6 @@
             max-height: 75vh;
             padding: 20px;
             overflow-y: auto;
-            animation: slideUp 0.3s ease-out;
         }
 
         .modal-top {
@@ -328,7 +315,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .control-btns { display: flex; align-items: center; gap: 8px; }
@@ -344,27 +331,25 @@
         }
         .trash-btn { color: #ef4444; background: none; border: none; font-size: 1rem; cursor: pointer; margin-right: 8px; }
 
-        /* الأنيميشن والتأثيرات */
         @keyframes blink { from { opacity: 0.4; } to { opacity: 1; } }
-        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
-            50% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
-            100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
-        }
     </style>
 </head>
 <body>
 
-    <!-- شريط حالة المطعم الحي -->
+    <!-- شريط حالة المطعم -->
     <div class="status-bar">
         <span class="status-dot"></span>
         <span>المطعم مفتوح الآن ويستقبل الطلبات المباشرة</span>
     </div>
 
     <header>
-        <div class="brand-title">مطعم الشيف ابن تايه</div>
-        <div class="brand-sub">BAGHDAD • LUXURY ONLINE MENU</div>
+        <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="تغيير المظهر">
+            <i class="fas fa-moon" id="themeIcon"></i>
+        </button>
+        <div class="brand-info">
+            <div class="brand-title">مطعم الشيف ابن تايه</div>
+            <div class="brand-sub">BAGHDAD • LUXURY MENU</div>
+        </div>
     </header>
 
     <!-- شريط البحث المباشر -->
@@ -447,13 +432,13 @@
             </div>
             <div>
                 <div style="font-size: 0.7rem; color: var(--text-muted);">اضغط لتعديل السلة</div>
-                <div style="color: var(--light-gold); font-weight: 800;" id="cartTotalSum">0 د.ع</div>
+                <div style="color: var(--primary-gold); font-weight: 800;" id="cartTotalSum">0 د.ع</div>
             </div>
         </div>
         <button class="btn-send-whatsapp" onclick="event.stopPropagation(); sendToWhatsApp()"><i class="fab fa-whatsapp"></i> إرسال الطلب</button>
     </div>
 
-    <!-- نافذة تعديل الطلبات -->
+    <!-- نافذة السلة -->
     <div class="cart-modal" id="cartModal" onclick="toggleCart()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <div class="modal-top">
@@ -468,7 +453,30 @@
 
     <script>
         let myCart = {};
-        const whatsappNumber = "9647700000000"; // ضع رقم الواتساب هنا
+        const whatsappNumber = "9647700000000"; // اكتب رقم الواتساب هنا
+
+        /* نظام التبديل بين الوضع الداكن والنهاري */
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.setAttribute('data-theme', 'light');
+                themeIcon.className = "fas fa-sun";
+                localStorage.setItem('ibn_theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                themeIcon.className = "fas fa-moon";
+                localStorage.setItem('ibn_theme', 'dark');
+            }
+        }
+
+        // استرجاع المظهر المحفوظ عند فتح الموقع
+        window.onload = function() {
+            const savedTheme = localStorage.getItem('ibn_theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            document.getElementById('themeIcon').className = savedTheme === 'light' ? "fas fa-sun" : "fas fa-moon";
+        };
 
         function addItem(name, price) {
             if (myCart[name]) {
@@ -537,7 +545,6 @@
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
 
-        /* البحث المباشر في المنيو */
         function filterMenu() {
             let input = document.getElementById('searchInput').value.toLowerCase();
             let cards = document.querySelectorAll('.food-card');
