@@ -205,3 +205,313 @@
             color: white;
             font-size: 0.7rem;
             font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+
+        .total-label { font-size: 0.75rem; color: var(--text-muted); }
+        .total-amount { color: var(--gold-light); font-weight: 900; font-size: 1.05rem; }
+
+        .btn-order { 
+            background: #25d366; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            border-radius: 30px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+        }
+
+        /* نافذة السلة التفاعلية */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 200;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .cart-modal.active { display: flex; }
+
+        .modal-content {
+            background: #121212;
+            border: 1px solid var(--gold-primary);
+            border-radius: 24px 24px 0 0;
+            width: 100%;
+            max-width: 800px;
+            max-height: 70vh;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+
+        .modal-title { font-family: 'Amiri', serif; color: var(--gold-primary); font-size: 1.3rem; }
+        .close-btn { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
+
+        .cart-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .item-controls { display: flex; align-items: center; gap: 8px; }
+        .qty-btn {
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--gold-primary);
+            border: 1px solid var(--gold-primary);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .delete-btn { color: #ef4444; background: none; border: none; cursor: pointer; margin-right: 10px; font-size: 1rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 class="logo-title">مطعم وكافيه ابن تايه</h1>
+        <p class="subtitle">بغداد • LUXURY MENU</p>
+    </header>
+
+    <!-- شريط الأقسام السريع -->
+    <div class="nav-categories">
+        <button class="nav-btn active" onclick="scrollToSec('meals')">الوجبات الرئيسية</button>
+        <button class="nav-btn" onclick="scrollToSec('grills')">المشويات</button>
+        <button class="nav-btn" onclick="scrollToSec('cafe')">الكافيه والمشروبات</button>
+        <button class="nav-btn" onclick="scrollToSec('dessert')">الحلويات</button>
+    </div>
+
+    <div class="container">
+        
+        <!-- قسم الوجبات الرئيسية -->
+        <div id="meals">
+            <h2 class="category-header"><i class="fas fa-utensils"></i> الوجبات الرئيسية</h2>
+            <div class="menu-grid">
+                <div class="item-card">
+                    <div class="img-wrapper"><img src="https://media.giphy.com/media/xT1R9P8658E8u3iC52/giphy.gif" class="item-img" alt="قص"></div>
+                    <div class="item-title">قص لحم عراقي</div>
+                    <div class="item-price">8,000 د.ع</div>
+                    <button class="btn-add" onclick="addToCart('قص لحم عراقي', 8000)">+ إضافة</button>
+                </div>
+                <div class="item-card">
+                    <div class="img-wrapper"><img src="https://media.giphy.com/media/l0HlA1H2D1aJ2RkSA/giphy.gif" class="item-img" alt="برغر"></div>
+                    <div class="item-title">برغر لحم خاص</div>
+                    <div class="item-price">6,000 د.ع</div>
+                    <button class="btn-add" onclick="addToCart('برغر لحم خاص', 6000)">+ إضافة</button>
+                </div>
+                <div class="item-card">
+                    <div class="img-wrapper"><img src="https://media.giphy.com/media/3o7TKsA9wL9y5hGeq4/giphy.gif" class="item-img" alt="شاورما"></div>
+                    <div class="item-title">شاورما دجاج</div>
+                    <div class="item-price">5,000 د.ع</div>
+                    <button class="btn-add" onclick="addToCart('شاورما دجاج', 5000)">+ إضافة</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم المشويات -->
+        <div id="grills">
+            <h2 class="category-header"><i class="fas fa-fire"></i> المشويات العراقية</h2>
+            <div class="menu-grid">
+                <div class="item-card">
+                    <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400" class="item-img" alt="كباب"></div>
+                    <div class="item-title">كباب لحم عراقي</div>
+                    <div class="item-price">9,000 د.ع</div>
+                    <button class="btn-add" onclick="addToCart('كباب لحم عراقي', 9000)">+ إضافة</button>
+                </div>
+                <div class="item-card">
+                    <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400" class="item-img" alt="تكا"></div>
+                    <div class="item-title">تكا لحم ملكي</div>
+                    <div class="item-price">10,000 د.ع</div>
+                    <button class="btn-add" onclick="addToCart('تكا لحم ملكي', 10000)">+ إضافة</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم الكافيه والمشروبات -->
+        <div id="cafe">
+            <h2 class="category-header"><i class="fas fa-coffee"></i> الكافيه والمشروبات</h2>
+            <div class="menu-grid">
+                <div class="item-card">
+                    <div class="img-wrapper"><img src="https://media.giphy.com/media/3o85xGocUH8RYoDKKs/giphy.gif" class="item-img" alt="قهوة"></div>
+                    <div class="item-title">قهوة تركية فاخرة</div>
+                    <div class="item-price">2,000 د.ع</div>
+                    <button class="btn-add" onclick="addToCart('قهوة تركية فاخرة', 2000)">+ إضافة</button>
+                </div>
+                <div class="item-card">
+                    <div class="img-wrapper"><img src="https://media.giphy.com/media/l41Yf106T6XlP2DBe/giphy.gif" class="item-img" alt="عصير"></div>
+                    <div class="item-title">عصير برتقال طازج</div>
+                    <div class="item-price">3,000 د.ع</div>
+                    <button class="btn-add" onclick="addToCart('عصير برتقال طازج', 3000)">+ إضافة</button>
+                </div>
+                <div class="item-card">
+                    <div class="img-wrapper"><img src="https://media.giphy.com/media/l2QDU2E4vG2L7O5fa/giphy.gif" class="item-img" alt="شاي"></div>
+                    <div class="item-title">شاي عراقي مهيل</div>
+                    <div class="item-price">1,000 د.ع</div>
+                    <button class="btn-add" onclick="addToCart('شاي عراقي مهيل', 1000)">+ إضافة</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم الحلويات -->
+        <div id="dessert">
+            <h2 class="category-header"><i class="fas fa-birthday-cake"></i> الحلويات</h2>
+            <div class="menu-grid">
+                <div class="item-card">
+                    <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400" class="item-img" alt="كنافة"></div>
+                    <div class="item-title">كنافة بالجبن</div>
+                    <div class="item-price">4,000 د.ع</div>
+                    <button class="btn-add" onclick="addToCart('كنافة بالجبن', 4000)">+ إضافة</button>
+                </div>
+                <div class="item-card">
+                    <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?w=400" class="item-img" alt="بقلاوة"></div>
+                    <div class="item-title">بقلاوة بالفستق</div>
+                    <div class="item-price">3,500 د.ع</div>
+                    <button class="btn-add" onclick="addToCart('بقلاوة بالفستق', 3500)">+ إضافة</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- شريط السلة العائم -->
+    <div class="cart-bar" onclick="toggleCartModal()">
+        <div class="cart-info">
+            <div class="cart-icon-wrapper">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count" id="cart-count">0</span>
+            </div>
+            <div>
+                <div class="total-label">اضغط لتعديل السلة</div>
+                <div class="total-amount" id="total-price">0 د.ع</div>
+            </div>
+        </div>
+        <button class="btn-order" onclick="event.stopPropagation(); sendWhatsApp()"><i class="fab fa-whatsapp"></i> إرسال الطلب</button>
+    </div>
+
+    <!-- نافذة تعديل الطلبات تفاعلياً -->
+    <div class="cart-modal" id="cartModal" onclick="toggleCartModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fas fa-list-ul"></i> قائمة طلباتك</h3>
+                <button class="close-btn" onclick="toggleCartModal()">&times;</button>
+            </div>
+            <div id="cartItemsContainer">
+                <p style="text-align:center; color: var(--text-muted); padding: 20px;">السلة فارغة حالياً</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cart = {};
+        const phoneNumber = "9647700000000"; // غيّر الرقم هنا لرقم الواتساب الخاص بك
+
+        function addToCart(name, price) {
+            if (cart[name]) {
+                cart[name].qty += 1;
+            } else {
+                cart[name] = { price: price, qty: 1 };
+            }
+            updateCartUI();
+        }
+
+        function changeQty(name, delta) {
+            if (cart[name]) {
+                cart[name].qty += delta;
+                if (cart[name].qty <= 0) {
+                    delete cart[name];
+                }
+            }
+            updateCartUI();
+        }
+
+        function removeItem(name) {
+            delete cart[name];
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            let total = 0;
+            let count = 0;
+            let container = document.getElementById('cartItemsContainer');
+            container.innerHTML = '';
+
+            let keys = Object.keys(cart);
+
+            if (keys.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color: var(--text-muted); padding: 20px;">السلة فارغة حالياً</p>';
+            } else {
+                keys.forEach(name => {
+                    let item = cart[name];
+                    let itemTotal = item.price * item.qty;
+                    total += itemTotal;
+                    count += item.qty;
+
+                    container.innerHTML += `
+                        <div class="cart-item-row">
+                            <div>
+                                <div style="font-weight:bold; color: var(--text-light);">${name}</div>
+                                <div style="font-size:0.8rem; color: var(--gold-primary);">${itemTotal.toLocaleString()} د.ع</div>
+                            </div>
+                            <div class="item-controls">
+                                <button class="qty-btn" onclick="changeQty('${name}', -1)">-</button>
+                                <span>${item.qty}</span>
+                                <button class="qty-btn" onclick="changeQty('${name}', 1)">+</button>
+                                <button class="delete-btn" onclick="removeItem('${name}')"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            document.getElementById('total-price').innerText = total.toLocaleString() + ' د.ع';
+            document.getElementById('cart-count').innerText = count;
+        }
+
+        function toggleCartModal() {
+            document.getElementById('cartModal').classList.toggle('active');
+        }
+
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function sendWhatsApp() {
+            let keys = Object.keys(cart);
+            if(keys.length === 0) {
+                alert("السلة فارغة! اختر بعض الوجبات أولاً.");
+                return;
+            }
+            let total = 0;
+            let message = "👑 *طلب جديد من مطعم وكافيه ابن تايه* 👑\n\n";
+            keys.forEach((name) => {
+                let item = cart[name];
+                let itemTotal = item.price * item.qty;
+                total += itemTotal;
+                message += `• ${name} (العدد: ${item.qty}) - ${itemTotal.toLocaleString()} د.ع\n`;
+            });
+            message += `\n💰 *المجموع الكلي:* ${total.toLocaleString()} د.ع`;
+            
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
