@@ -344,30 +344,6 @@
         }
         .trash-btn { color: #ef4444; background: none; border: none; font-size: 1rem; cursor: pointer; margin-right: 8px; }
 
-        /* حقول تفاصيل الطلب داخل النافذة */
-        .order-options {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px dashed var(--border-color);
-        }
-        .order-options label {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--primary-gold);
-            margin-bottom: 5px;
-        }
-        .order-input, .order-select {
-            width: 100%;
-            background: #1c1c1c;
-            border: 1px solid var(--border-color);
-            padding: 8px 12px;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 0.8rem;
-            margin-bottom: 10px;
-            outline: none;
-        }
-
         /* الأنيميشن والتأثيرات */
         @keyframes blink { from { opacity: 0.4; } to { opacity: 1; } }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
@@ -487,19 +463,6 @@
             <div id="cartItemsList">
                 <p style="text-align: center; color: var(--text-muted); padding: 20px;">السلة فارغة حالياً</p>
             </div>
-
-            <!-- خيارات تفاصيل الطلب المضافة -->
-            <div class="order-options">
-                <label><i class="fas fa-motorcycle"></i> نوع الطلب:</label>
-                <select id="orderType" class="order-select">
-                    <option value="توصيل للمنزل">توصيل للمنزل (Delivery)</option>
-                    <option value="سفري / استلام">سفري / استلام من المطعم</option>
-                    <option value="داخل المطعم">تناول داخل المطعم</option>
-                </select>
-
-                <label><i class="fas fa-pen"></i> ملاحظات أو إضافة خاصة:</label>
-                <input type="text" id="orderNotes" class="order-input" placeholder="مثال: بدون بصل، زيادة صوص...">
-            </div>
         </div>
     </div>
 
@@ -592,15 +555,10 @@
         function sendToWhatsApp() {
             let itemsKeys = Object.keys(myCart);
             if (itemsKeys.length === 0) return alert("السلة فارغة! يرجى إضافة وجبات أولاً.");
-            
-            let orderType = document.getElementById('orderType').value;
-            let orderNotes = document.getElementById('orderNotes').value;
 
             let totalSum = 0;
             let message = "👑 *طلب جديد من مطعم الشيف ابن تايه* 👑\n\n";
-            message += `🛵 *نوع الطلب:* ${orderType}\n`;
-            if(orderNotes) message += `📝 *ملاحظات:* ${orderNotes}\n`;
-            message += `\n*قائمة الوجبات:*\n`;
+            message += `*قائمة الوجبات:*\n`;
 
             itemsKeys.forEach(name => {
                 let item = myCart[name];
