@@ -10,11 +10,11 @@
         :root {
             --primary-gold: #d4af37;
             --light-gold: #fcf6ba;
-            --dark-bg: #0d0d0d;
-            --card-bg: #161616;
-            --border-color: rgba(212, 175, 55, 0.3);
+            --dark-bg: #0a0a0a;
+            --card-bg: rgba(22, 22, 22, 0.85);
+            --border-color: rgba(212, 175, 55, 0.25);
             --text-main: #ffffff;
-            --text-muted: #9e9e9e;
+            --text-muted: #a3a3a3;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
@@ -22,26 +22,50 @@
         body {
             background-color: var(--dark-bg);
             color: var(--text-main);
-            padding-bottom: 110px;
+            padding-bottom: 120px;
+            overflow-x: hidden;
         }
 
-        /* الهيدر العلوي مع حركة خفيفة */
+        /* شريط حالة المطعم */
+        .status-bar {
+            background: #111;
+            color: var(--light-gold);
+            font-size: 0.75rem;
+            text-align: center;
+            padding: 6px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #22c55e;
+            animation: blink 1.5s infinite alternate;
+        }
+
+        /* الهيدر العلوي */
         header {
-            background: #121212;
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(12px);
             padding: 18px 15px;
             text-align: center;
             border-bottom: 2px solid var(--primary-gold);
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.15);
-            animation: fadeInDown 0.8s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
         }
 
         .brand-title {
             color: var(--primary-gold);
             font-size: 1.8rem;
             font-weight: 900;
+            letter-spacing: 0.5px;
         }
 
         .brand-sub {
@@ -51,13 +75,35 @@
             margin-top: 2px;
         }
 
-        /* شريط الأقسام السريع */
+        /* شريط البحث المباشر */
+        .search-container {
+            max-width: 800px;
+            margin: 15px auto 5px;
+            padding: 0 15px;
+        }
+        .search-box {
+            width: 100%;
+            background: #141414;
+            border: 1px solid var(--border-color);
+            padding: 10px 15px;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 0.85rem;
+            outline: none;
+            transition: 0.3s;
+        }
+        .search-box:focus {
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        /* شريط الأقسام السريع التفاعلي */
         .category-bar {
             display: flex;
             gap: 10px;
             overflow-x: auto;
             padding: 12px 15px;
-            background: #141414;
+            background: #121212;
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 73px;
@@ -79,14 +125,15 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .cat-item.active, .cat-item:hover {
             background: var(--primary-gold);
             color: #000;
             border-color: var(--light-gold);
-            transform: scale(1.05);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
         }
 
         .container { max-width: 800px; margin: 0 auto; padding: 15px; }
@@ -101,25 +148,25 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            animation: fadeIn 1s ease;
         }
 
-        /* شبكة الكروت مع حركة ظهور تدريجية وتفاعل */
+        /* شبكة الكروت التفاعلية */
         .grid-menu {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 14px;
+            gap: 15px;
         }
 
         .food-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
+            border-radius: 16px;
             padding: 10px;
             text-align: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            animation: fadeInUp 0.6s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
         }
 
         .food-card:hover {
@@ -130,11 +177,11 @@
 
         .img-container {
             width: 100%;
-            height: 110px;
-            border-radius: 10px;
+            height: 115px;
+            border-radius: 12px;
             overflow: hidden;
             margin-bottom: 8px;
-            border: 1px solid rgba(212,175,55,0.2);
+            border: 1px solid rgba(212,175,55,0.15);
         }
 
         .img-container img {
@@ -145,13 +192,22 @@
         }
 
         .food-card:hover .img-container img {
-            transform: scale(1.12);
+            transform: scale(1.1);
         }
 
         .food-name {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 700;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
+        }
+
+        .food-desc {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            line-height: 1.2;
+            height: 28px;
+            overflow: hidden;
         }
 
         .food-price {
@@ -180,7 +236,7 @@
             color: #000;
         }
 
-        /* شريط السلة العائم المتحرك بنبضة خفيفة */
+        /* الشريط السفلي العائم والسلة */
         .floating-cart {
             position: fixed;
             bottom: 15px;
@@ -188,7 +244,8 @@
             right: 15px;
             max-width: 770px;
             margin: 0 auto;
-            background: #161616;
+            background: rgba(22, 22, 22, 0.95);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--primary-gold);
             border-radius: 40px;
             padding: 10px 18px;
@@ -196,9 +253,9 @@
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.9);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.9), 0 0 15px rgba(212, 175, 55, 0.2);
             cursor: pointer;
-            animation: pulseGlow 2s infinite;
+            animation: pulseGlow 2.5s infinite;
         }
 
         .cart-details { display: flex; align-items: center; gap: 12px; }
@@ -213,7 +270,6 @@
             padding: 2px 6px;
             border-radius: 10px;
             font-weight: bold;
-            animation: bounce 1s infinite alternate;
         }
 
         .btn-send-whatsapp {
@@ -230,30 +286,30 @@
             gap: 6px;
             transition: transform 0.2s;
         }
-        .btn-send-whatsapp:hover { transform: scale(1.05); }
+        .btn-send-whatsapp:hover { transform: scale(1.04); }
 
-        /* نافذة تعديل الطلبات المتحركة */
+        /* النافذة التفاعلية للسلة */
         .cart-modal {
             display: none;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(6px);
             z-index: 200;
             justify-content: center;
             align-items: flex-end;
-            backdrop-filter: blur(5px);
         }
 
         .cart-modal.active { display: flex; }
 
         .modal-box {
-            background: #161616;
+            background: #141414;
             border: 1px solid var(--primary-gold);
-            border-radius: 20px 20px 0 0;
+            border-radius: 24px 24px 0 0;
             width: 100%;
             max-width: 800px;
-            max-height: 70vh;
-            padding: 18px;
+            max-height: 75vh;
+            padding: 20px;
             overflow-y: auto;
             animation: slideUp 0.3s ease-out;
         }
@@ -285,41 +341,60 @@
             border-radius: 50%;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.2s;
         }
-        .qty-btn:active { transform: scale(0.9); }
         .trash-btn { color: #ef4444; background: none; border: none; font-size: 1rem; cursor: pointer; margin-right: 8px; }
 
-        /* الحركات والتأثيرات البصرية (Animations) */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* حقول تفاصيل الطلب داخل النافذة */
+        .order-options {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--border-color);
         }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .order-options label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--primary-gold);
+            margin-bottom: 5px;
         }
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
+        .order-input, .order-select {
+            width: 100%;
+            background: #1c1c1c;
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            outline: none;
         }
+
+        /* الأنيميشن والتأثيرات */
+        @keyframes blink { from { opacity: 0.4; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
         @keyframes pulseGlow {
             0% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
             50% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
             100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
         }
-        @keyframes bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-3px); }
-        }
     </style>
 </head>
 <body>
 
+    <!-- شريط حالة المطعم الحي -->
+    <div class="status-bar">
+        <span class="status-dot"></span>
+        <span>المطعم مفتوح الآن ويستقبل الطلبات المباشرة</span>
+    </div>
+
     <header>
         <div class="brand-title">مطعم الشيف ابن تايه</div>
-        <div class="brand-sub">BAGHDAD • LUXURY MENU</div>
+        <div class="brand-sub">BAGHDAD • LUXURY ONLINE MENU</div>
     </header>
+
+    <!-- شريط البحث المباشر -->
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-box" placeholder="🔍 ابحث عن وجبتك أو مشروبك المفضل..." onkeyup="filterMenu()">
+    </div>
 
     <!-- شريط الأقسام السريع -->
     <div class="category-bar">
@@ -333,24 +408,27 @@
     <div class="container">
 
         <!-- قسم الوجبات الرئيسية -->
-        <div id="meals">
+        <div id="meals" class="menu-section">
             <div class="section-header"><i class="fas fa-hamburger"></i> الوجبات الرئيسية</div>
             <div class="grid-menu">
-                <div class="food-card">
-                    <div class="img-container"><img src="https://media.giphy.com/media/xT1R9P8658E8u3iC52/giphy.gif" alt="قص"></div>
+                <div class="food-card" data-name="قص لحم عراقي">
+                    <div class="img-container"><img src="https://images.unsplash.com/photo-1561758033-d89a9ad46330?w=400" alt="قص"></div>
                     <div class="food-name">قص لحم عراقي</div>
+                    <div class="food-desc">لحم بلدي طازج مع طماطم ومخلل</div>
                     <div class="food-price">8,000 د.ع</div>
                     <button class="btn-add-item" onclick="addItem('قص لحم عراقي', 8000)">+ إضافة للطلب</button>
                 </div>
-                <div class="food-card">
-                    <div class="img-container"><img src="https://media.giphy.com/media/l0HlA1H2D1aJ2RkSA/giphy.gif" alt="برغر"></div>
+                <div class="food-card" data-name="برغر لحم خاص">
+                    <div class="img-container"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" alt="برغر"></div>
                     <div class="food-name">برغر لحم خاص</div>
+                    <div class="food-desc">شريحة لحم دبل مع جبن شيدر وصوص خاص</div>
                     <div class="food-price">6,000 د.ع</div>
                     <button class="btn-add-item" onclick="addItem('برغر لحم خاص', 6000)">+ إضافة للطلب</button>
                 </div>
-                <div class="food-card">
-                    <div class="img-container"><img src="https://media.giphy.com/media/3o7TKsA9wL9y5hGeq4/giphy.gif" alt="شاورما"></div>
+                <div class="food-card" data-name="شاورما دجاج">
+                    <div class="img-container"><img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400" alt="شاورما"></div>
                     <div class="food-name">شاورما دجاج</div>
+                    <div class="food-desc">شاورما دجاج متبلة مع صوص ثوم ومخلل</div>
                     <div class="food-price">5,000 د.ع</div>
                     <button class="btn-add-item" onclick="addItem('شاورما دجاج', 5000)">+ إضافة للطلب</button>
                 </div>
@@ -358,18 +436,20 @@
         </div>
 
         <!-- قسم المشويات -->
-        <div id="grills">
+        <div id="grills" class="menu-section">
             <div class="section-header"><i class="fas fa-fire"></i> المشويات الفاخرة</div>
             <div class="grid-menu">
-                <div class="food-card">
+                <div class="food-card" data-name="كباب لحم عراقي">
                     <div class="img-container"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400" alt="كباب"></div>
                     <div class="food-name">كباب لحم عراقي</div>
+                    <div class="food-desc">كباب مشوي على الفحم مع خضار مشوية</div>
                     <div class="food-price">9,000 د.ع</div>
                     <button class="btn-add-item" onclick="addItem('كباب لحم عراقي', 9000)">+ إضافة للطلب</button>
                 </div>
-                <div class="food-card">
+                <div class="food-card" data-name="تكا لحم ملكي">
                     <div class="img-container"><img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400" alt="تكا"></div>
                     <div class="food-name">تكا لحم ملكي</div>
+                    <div class="food-desc">قطع لحم غنم متبلة ومشويه بدقة</div>
                     <div class="food-price">10,000 د.ع</div>
                     <button class="btn-add-item" onclick="addItem('تكا لحم ملكي', 10000)">+ إضافة للطلب</button>
                 </div>
@@ -377,12 +457,13 @@
         </div>
 
         <!-- قسم الأراجيل -->
-        <div id="shisha">
+        <div id="shisha" class="menu-section">
             <div class="section-header"><i class="fas fa-smoking"></i> قسم الأراجيل</div>
             <div class="grid-menu">
-                <div class="food-card">
+                <div class="food-card" data-name="أرجيلة فاخرة">
                     <div class="img-container"><img src="https://images.unsplash.com/photo-1512418490979-92798cec1380?w=400" alt="أرجيلة"></div>
-                    <div class="food-name">أرجيلة فاخرة (جميع النكهات)</div>
+                    <div class="food-name">أرجيلة فاخرة</div>
+                    <div class="food-desc">توفير جميع النكهات العالمية حسب الطلب</div>
                     <div class="food-price">5,000 د.ع</div>
                     <button class="btn-add-item" onclick="addItem('أرجيلة فاخرة', 5000)">+ إضافة للطلب</button>
                 </div>
@@ -390,24 +471,27 @@
         </div>
 
         <!-- قسم المشروبات -->
-        <div id="cafe">
+        <div id="cafe" class="menu-section">
             <div class="section-header"><i class="fas fa-coffee"></i> الكافيه والمشروبات</div>
             <div class="grid-menu">
-                <div class="food-card">
-                    <div class="img-container"><img src="https://media.giphy.com/media/3o85xGocUH8RYoDKKs/giphy.gif" alt="قهوة"></div>
+                <div class="food-card" data-name="قهوة تركية فاخرة">
+                    <div class="img-container"><img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400" alt="قهوة"></div>
                     <div class="food-name">قهوة تركية فاخرة</div>
+                    <div class="food-desc">قهوة محمصة ومحضرة على الأصول</div>
                     <div class="food-price">2,000 د.ع</div>
                     <button class="btn-add-item" onclick="addItem('قهوة تركية فاخرة', 2000)">+ إضافة للطلب</button>
                 </div>
-                <div class="food-card">
-                    <div class="img-container"><img src="https://media.giphy.com/media/l41Yf106T6XlP2DBe/giphy.gif" alt="عصير"></div>
+                <div class="food-card" data-name="عصير برتقال طازج">
+                    <div class="img-container"><img src="https://images.unsplash.com/photo-1613478223719-2ab802602423?w=400" alt="عصير"></div>
                     <div class="food-name">عصير برتقال طازج</div>
+                    <div class="food-desc">عصير طبيعي 100% بدون إضافات</div>
                     <div class="food-price">3,000 د.ع</div>
                     <button class="btn-add-item" onclick="addItem('عصير برتقال طازج', 3000)">+ إضافة للطلب</button>
                 </div>
-                <div class="food-card">
-                    <div class="img-container"><img src="https://media.giphy.com/media/l2QDU2E4vG2L7O5fa/giphy.gif" alt="شاي"></div>
+                <div class="food-card" data-name="شاي عراقي مهيل">
+                    <div class="img-container"><img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=400" alt="شاي"></div>
                     <div class="food-name">شاي عراقي مهيل</div>
+                    <div class="food-desc">شاي مع الهيل العراقي الأصيل</div>
                     <div class="food-price">1,000 د.ع</div>
                     <button class="btn-add-item" onclick="addItem('شاي عراقي مهيل', 1000)">+ إضافة للطلب</button>
                 </div>
@@ -415,12 +499,13 @@
         </div>
 
         <!-- قسم الحلويات -->
-        <div id="sweets">
+        <div id="sweets" class="menu-section">
             <div class="section-header"><i class="fas fa-birthday-cake"></i> الحلويات</div>
             <div class="grid-menu">
-                <div class="food-card">
+                <div class="food-card" data-name="كنافة بالجبن">
                     <div class="img-container"><img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400" alt="كنافة"></div>
                     <div class="food-name">كنافة بالجبن</div>
+                    <div class="food-desc">كنافة نابلسية دافئة مع قطر وفستق</div>
                     <div class="food-price">4,000 د.ع</div>
                     <button class="btn-add-item" onclick="addItem('كنافة بالجبن', 4000)">+ إضافة للطلب</button>
                 </div>
@@ -454,12 +539,25 @@
             <div id="cartItemsList">
                 <p style="text-align: center; color: var(--text-muted); padding: 20px;">السلة فارغة حالياً</p>
             </div>
+
+            <!-- خيارات تفاصيل الطلب المضافة -->
+            <div class="order-options">
+                <label><i class="fas fa-motorcycle"></i> نوع الطلب:</label>
+                <select id="orderType" class="order-select">
+                    <option value="توصيل للمنزل">توصيل للمنزل (Delivery)</option>
+                    <option value="سفري / استلام">سفري / استلام من المطعم</option>
+                    <option value="داخل المطعم">تناول داخل المطعم</option>
+                </select>
+
+                <label><i class="fas fa-pen"></i> ملاحظات أو إضافة خاصة:</label>
+                <input type="text" id="orderNotes" class="order-input" placeholder="مثال: بدون بصل، زيادة صوص...">
+            </div>
         </div>
     </div>
 
     <script>
         let myCart = {};
-        const whatsappNumber = "9647700000000"; // اكتب رقم الهاتف الخاص بالمطعم هنا
+        const whatsappNumber = "9647700000000"; // ضع رقم الواتساب هنا
 
         function addItem(name, price) {
             if (myCart[name]) {
@@ -528,12 +626,34 @@
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
 
+        /* البحث المباشر في المنيو */
+        function filterMenu() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.querySelectorAll('.food-card');
+
+            cards.forEach(card => {
+                let name = card.getAttribute('data-name').toLowerCase();
+                if (name.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
         function sendToWhatsApp() {
             let itemsKeys = Object.keys(myCart);
             if (itemsKeys.length === 0) return alert("السلة فارغة! يرجى إضافة وجبات أولاً.");
             
+            let orderType = document.getElementById('orderType').value;
+            let orderNotes = document.getElementById('orderNotes').value;
+
             let totalSum = 0;
             let message = "👑 *طلب جديد من مطعم الشيف ابن تايه* 👑\n\n";
+            message += `🛵 *نوع الطلب:* ${orderType}\n`;
+            if(orderNotes) message += `📝 *ملاحظات:* ${orderNotes}\n`;
+            message += `\n*قائمة الوجبات:*\n`;
+
             itemsKeys.forEach(name => {
                 let item = myCart[name];
                 let sum = item.price * item.qty;
