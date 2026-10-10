@@ -399,10 +399,7 @@
     <!-- شريط الأقسام السريع -->
     <div class="category-bar">
         <button class="cat-item active" onclick="gotoSec('meals')"><i class="fas fa-utensils"></i> الوجبات الرئيسية</button>
-        <button class="cat-item" onclick="gotoSec('grills')"><i class="fas fa-fire"></i> المشويات</button>
-        <button class="cat-item" onclick="gotoSec('shisha')"><i class="fas fa-smoking"></i> الأراجيل</button>
         <button class="cat-item" onclick="gotoSec('cafe')"><i class="fas fa-coffee"></i> الكافيه والمشروبات</button>
-        <button class="cat-item" onclick="gotoSec('sweets')"><i class="fas fa-birthday-cake"></i> الحلويات</button>
     </div>
 
     <div class="container">
@@ -435,41 +432,6 @@
             </div>
         </div>
 
-        <!-- قسم المشويات -->
-        <div id="grills" class="menu-section">
-            <div class="section-header"><i class="fas fa-fire"></i> المشويات الفاخرة</div>
-            <div class="grid-menu">
-                <div class="food-card" data-name="كباب لحم عراقي">
-                    <div class="img-container"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400" alt="كباب"></div>
-                    <div class="food-name">كباب لحم عراقي</div>
-                    <div class="food-desc">كباب مشوي على الفحم مع خضار مشوية</div>
-                    <div class="food-price">9,000 د.ع</div>
-                    <button class="btn-add-item" onclick="addItem('كباب لحم عراقي', 9000)">+ إضافة للطلب</button>
-                </div>
-                <div class="food-card" data-name="تكا لحم ملكي">
-                    <div class="img-container"><img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400" alt="تكا"></div>
-                    <div class="food-name">تكا لحم ملكي</div>
-                    <div class="food-desc">قطع لحم غنم متبلة ومشويه بدقة</div>
-                    <div class="food-price">10,000 د.ع</div>
-                    <button class="btn-add-item" onclick="addItem('تكا لحم ملكي', 10000)">+ إضافة للطلب</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- قسم الأراجيل -->
-        <div id="shisha" class="menu-section">
-            <div class="section-header"><i class="fas fa-smoking"></i> قسم الأراجيل</div>
-            <div class="grid-menu">
-                <div class="food-card" data-name="أرجيلة فاخرة">
-                    <div class="img-container"><img src="https://images.unsplash.com/photo-1512418490979-92798cec1380?w=400" alt="أرجيلة"></div>
-                    <div class="food-name">أرجيلة فاخرة</div>
-                    <div class="food-desc">توفير جميع النكهات العالمية حسب الطلب</div>
-                    <div class="food-price">5,000 د.ع</div>
-                    <button class="btn-add-item" onclick="addItem('أرجيلة فاخرة', 5000)">+ إضافة للطلب</button>
-                </div>
-            </div>
-        </div>
-
         <!-- قسم المشروبات -->
         <div id="cafe" class="menu-section">
             <div class="section-header"><i class="fas fa-coffee"></i> الكافيه والمشروبات</div>
@@ -494,20 +456,6 @@
                     <div class="food-desc">شاي مع الهيل العراقي الأصيل</div>
                     <div class="food-price">1,000 د.ع</div>
                     <button class="btn-add-item" onclick="addItem('شاي عراقي مهيل', 1000)">+ إضافة للطلب</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- قسم الحلويات -->
-        <div id="sweets" class="menu-section">
-            <div class="section-header"><i class="fas fa-birthday-cake"></i> الحلويات</div>
-            <div class="grid-menu">
-                <div class="food-card" data-name="كنافة بالجبن">
-                    <div class="img-container"><img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400" alt="كنافة"></div>
-                    <div class="food-name">كنافة بالجبن</div>
-                    <div class="food-desc">كنافة نابلسية دافئة مع قطر وفستق</div>
-                    <div class="food-price">4,000 د.ع</div>
-                    <button class="btn-add-item" onclick="addItem('كنافة بالجبن', 4000)">+ إضافة للطلب</button>
                 </div>
             </div>
         </div>
