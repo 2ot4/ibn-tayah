@@ -9,7 +9,6 @@
     <meta property="og:url" content="https://2ot4.github.io/ibn-tayah/">
     <meta property="og:title" content="مطعم الشيف ابن تايه | Ibn Tayah Menu">
     <meta property="og:description" content="قائمة الطعام الرقمية والفاخرة لمطعم الشيف ابن تايه - بغداد. اطلب أشهى الوجبات والمشروبات مباشرة عبر الواتساب.">
-    <!-- رابط الصورة التي ستظهر مع الرابط عند الإرسال -->
     <meta property="og:image" content="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&auto=format&fit=crop&q=80">
     <meta property="og:image:width" content="600">
     <meta property="og:image:height" content="315">
@@ -20,11 +19,11 @@
     <style>
         /* الألوان الافتراضية (الوضع الداكن - Dark Mode) */
         :root[data-theme="dark"] {
-            --primary-gold: #d4af37;
-            --light-gold: #fcf6ba;
+            --primary-gold: #ffd700;
+            --light-gold: #fff5c0;
             --dark-bg: #0a0a0a;
             --card-bg: rgba(22, 22, 22, 0.85);
-            --border-color: rgba(212, 175, 55, 0.25);
+            --border-color: rgba(255, 215, 0, 0.35);
             --text-main: #ffffff;
             --text-muted: #a3a3a3;
             --header-bg: rgba(18, 18, 18, 0.95);
@@ -33,11 +32,11 @@
 
         /* الألوان (الوضع النهاري - Light Mode) */
         :root[data-theme="light"] {
-            --primary-gold: #b89728;
+            --primary-gold: #c59b27;
             --light-gold: #8a6f18;
             --dark-bg: #f8f9fa;
             --card-bg: rgba(255, 255, 255, 0.95);
-            --border-color: rgba(184, 151, 40, 0.3);
+            --border-color: rgba(197, 155, 39, 0.4);
             --text-main: #1a1a1a;
             --text-muted: #666666;
             --header-bg: rgba(255, 255, 255, 0.95);
@@ -53,6 +52,15 @@
             overflow-x: hidden;
         }
 
+        /* تأثير الخط الذهبي اللامع */
+        .shiny-gold-text {
+            background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa7c11 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
+            font-weight: 900;
+        }
+
         /* شريط حالة المطعم */
         .status-bar {
             background: #111;
@@ -60,7 +68,7 @@
             font-size: 0.75rem;
             text-align: center;
             padding: 6px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -93,14 +101,13 @@
 
         .brand-info { text-align: right; flex-grow: 1; }
         .brand-title {
-            color: var(--primary-gold);
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 900;
         }
         .brand-sub {
             color: var(--light-gold);
             font-size: 0.75rem;
-            opacity: 0.85;
+            opacity: 0.9;
         }
 
         /* زر تبديل الوضع (داكن / نهاري) */
@@ -140,7 +147,7 @@
         }
         .search-box:focus {
             border-color: var(--primary-gold);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
         }
 
         /* شريط الأقسام السريع */
@@ -173,16 +180,16 @@
             gap: 6px;
         }
         .cat-item.active, .cat-item:hover {
-            background: var(--primary-gold);
-            color: #fff;
+            background: linear-gradient(135deg, #bf953f, #fcf6ba, #aa7c11);
+            color: #000;
+            font-weight: bold;
             border-color: var(--light-gold);
+            box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
         }
-        :root[data-theme="light"] .cat-item.active { color: #000; }
 
         .container { max-width: 800px; margin: 0 auto; padding: 15px; }
 
         .section-header {
-            color: var(--primary-gold);
             font-size: 1.3rem;
             font-weight: 700;
             margin: 25px 0 15px;
@@ -223,7 +230,7 @@
 
         .food-name { font-size: 0.95rem; font-weight: 700; margin-bottom: 2px; }
         .food-desc { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 6px; height: 28px; overflow: hidden; }
-        .food-price { color: var(--primary-gold); font-size: 0.85rem; font-weight: 800; margin-bottom: 10px; }
+        .food-price { font-size: 0.9rem; font-weight: 900; margin-bottom: 10px; }
 
         .btn-add-item {
             background: transparent;
@@ -236,8 +243,10 @@
             font-size: 0.8rem;
             cursor: pointer;
         }
-        .btn-add-item:active { background: var(--primary-gold); color: #fff; }
-        :root[data-theme="light"] .btn-add-item:active { color: #000; }
+        .btn-add-item:active {
+            background: linear-gradient(135deg, #bf953f, #fcf6ba, #aa7c11);
+            color: #000;
+        }
 
         /* شريط السلة السفلي */
         .floating-cart {
@@ -331,7 +340,7 @@
 
         .control-btns { display: flex; align-items: center; gap: 8px; }
         .qty-btn {
-            background: rgba(212, 175, 55, 0.2);
+            background: rgba(255, 215, 0, 0.2);
             color: var(--primary-gold);
             border: 1px solid var(--primary-gold);
             width: 26px;
@@ -358,7 +367,7 @@
             <i class="fas fa-moon" id="themeIcon"></i>
         </button>
         <div class="brand-info">
-            <div class="brand-title">مطعم الشيف ابن تايه</div>
+            <div class="brand-title shiny-gold-text">مطعم الشيف ابن تايه</div>
             <div class="brand-sub">BAGHDAD • LUXURY MENU</div>
         </div>
     </header>
@@ -378,27 +387,27 @@
 
         <!-- قسم الوجبات الرئيسية -->
         <div id="meals" class="menu-section">
-            <div class="section-header"><i class="fas fa-hamburger"></i> الوجبات الرئيسية</div>
+            <div class="section-header shiny-gold-text"><i class="fas fa-hamburger"></i> الوجبات الرئيسية</div>
             <div class="grid-menu">
                 <div class="food-card" data-name="قص لحم عراقي">
                     <div class="img-container"><img src="https://images.unsplash.com/photo-1561758033-d89a9ad46330?w=400" alt="قص"></div>
                     <div class="food-name">قص لحم عراقي</div>
                     <div class="food-desc">لحم بلدي طازج مع طماطم ومخلل</div>
-                    <div class="food-price">8,000 د.ع</div>
+                    <div class="food-price shiny-gold-text">8,000 د.ع</div>
                     <button class="btn-add-item" onclick="addItem('قص لحم عراقي', 8000)">+ إضافة للطلب</button>
                 </div>
                 <div class="food-card" data-name="برغر لحم خاص">
                     <div class="img-container"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" alt="برغر"></div>
                     <div class="food-name">برغر لحم خاص</div>
                     <div class="food-desc">شريحة لحم دبل مع جبن شيدر وصوص خاص</div>
-                    <div class="food-price">6,000 د.ع</div>
+                    <div class="food-price shiny-gold-text">6,000 د.ع</div>
                     <button class="btn-add-item" onclick="addItem('برغر لحم خاص', 6000)">+ إضافة للطلب</button>
                 </div>
                 <div class="food-card" data-name="شاورما دجاج">
                     <div class="img-container"><img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400" alt="شاورما"></div>
                     <div class="food-name">شاورما دجاج</div>
                     <div class="food-desc">شاورما دجاج متبلة مع صوص ثوم ومخلل</div>
-                    <div class="food-price">5,000 د.ع</div>
+                    <div class="food-price shiny-gold-text">5,000 د.ع</div>
                     <button class="btn-add-item" onclick="addItem('شاورما دجاج', 5000)">+ إضافة للطلب</button>
                 </div>
             </div>
@@ -406,27 +415,27 @@
 
         <!-- قسم المشروبات -->
         <div id="cafe" class="menu-section">
-            <div class="section-header"><i class="fas fa-coffee"></i> الكافيه والمشروبات</div>
+            <div class="section-header shiny-gold-text"><i class="fas fa-coffee"></i> الكافيه والمشروبات</div>
             <div class="grid-menu">
                 <div class="food-card" data-name="قهوة تركية فاخرة">
                     <div class="img-container"><img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400" alt="قهوة"></div>
                     <div class="food-name">قهوة تركية فاخرة</div>
                     <div class="food-desc">قهوة محمصة ومحضرة على الأصول</div>
-                    <div class="food-price">2,000 د.ع</div>
+                    <div class="food-price shiny-gold-text">2,000 د.ع</div>
                     <button class="btn-add-item" onclick="addItem('قهوة تركية فاخرة', 2000)">+ إضافة للطلب</button>
                 </div>
                 <div class="food-card" data-name="عصير برتقال طازج">
                     <div class="img-container"><img src="https://images.unsplash.com/photo-1613478223719-2ab802602423?w=400" alt="عصير"></div>
                     <div class="food-name">عصير برتقال طازج</div>
                     <div class="food-desc">عصير طبيعي 100% بدون إضافات</div>
-                    <div class="food-price">3,000 د.ع</div>
+                    <div class="food-price shiny-gold-text">3,000 د.ع</div>
                     <button class="btn-add-item" onclick="addItem('عصير برتقال طازج', 3000)">+ إضافة للطلب</button>
                 </div>
                 <div class="food-card" data-name="شاي عراقي مهيل">
                     <div class="img-container"><img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=400" alt="شاي"></div>
                     <div class="food-name">شاي عراقي مهيل</div>
                     <div class="food-desc">شاي مع الهيل العراقي الأصيل</div>
-                    <div class="food-price">1,000 د.ع</div>
+                    <div class="food-price shiny-gold-text">1,000 د.ع</div>
                     <button class="btn-add-item" onclick="addItem('شاي عراقي مهيل', 1000)">+ إضافة للطلب</button>
                 </div>
             </div>
@@ -443,7 +452,7 @@
             </div>
             <div>
                 <div style="font-size: 0.7rem; color: var(--text-muted);">اضغط لتعديل السلة</div>
-                <div style="color: var(--primary-gold); font-weight: 800;" id="cartTotalSum">0 د.ع</div>
+                <div class="shiny-gold-text" id="cartTotalSum">0 د.ع</div>
             </div>
         </div>
         <button class="btn-send-whatsapp" onclick="event.stopPropagation(); sendToWhatsApp()"><i class="fab fa-whatsapp"></i> إرسال الطلب</button>
@@ -453,7 +462,7 @@
     <div class="cart-modal" id="cartModal" onclick="toggleCart()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <div class="modal-top">
-                <h3 style="color: var(--primary-gold); font-size: 1.1rem;"><i class="fas fa-list"></i> تفاصيل طلباتك</h3>
+                <h3 class="shiny-gold-text" style="font-size: 1.1rem;"><i class="fas fa-list"></i> تفاصيل طلباتك</h3>
                 <span onclick="toggleCart()" style="cursor: pointer; font-size: 1.4rem; color: #aaa;">&times;</span>
             </div>
             <div id="cartItemsList">
@@ -531,7 +540,7 @@
                         <div class="item-row">
                             <div>
                                 <div style="font-weight: bold; font-size: 0.9rem;">${name}</div>
-                                <div style="font-size: 0.8rem; color: var(--primary-gold);">${sum.toLocaleString()} د.ع</div>
+                                <div class="shiny-gold-text" style="font-size: 0.8rem;">${sum.toLocaleString()} د.ع</div>
                             </div>
                             <div class="control-btns">
                                 <button class="qty-btn" onclick="updateQuantity('${name}', -1)">-</button>
