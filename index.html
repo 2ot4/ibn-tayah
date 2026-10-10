@@ -16,26 +16,106 @@
             --text-muted: #94a3b8;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text-light); direction: rtl; text-align: right; }
-        header { background: var(--card-bg); padding: 20px; text-align: center; border-bottom: 2px solid var(--primary); }
-        h1 { color: var(--primary); font-size: 1.8rem; margin-bottom: 5px; }
-        p { color: var(--text-muted); }
-        .container { max-width: 800px; margin: 20px auto; padding: 15px; }
-        .welcome-box { background: var(--card-bg); padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
-        .btn-whatsapp { display: inline-block; background: #25d366; color: white; padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: bold; margin-top: 15px; }
+        body { background-color: var(--bg-dark); color: var(--text-light); padding-bottom: 80px; }
+        header { background: var(--card-bg); padding: 20px; text-align: center; border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 100; }
+        h1 { color: var(--primary); font-size: 1.8rem; }
+        p { color: var(--text-muted); font-size: 0.9rem; }
+        .container { max-width: 800px; margin: 0 auto; padding: 15px; }
+        .category-title { font-size: 1.3rem; color: var(--primary); margin: 20px 0 10px; border-bottom: 1px solid var(--card-bg); padding-bottom: 5px; }
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+        .item-card { background: var(--card-bg); border-radius: 12px; padding: 12px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
+        .item-title { font-weight: bold; margin-bottom: 5px; }
+        .item-price { color: var(--primary); font-weight: 700; margin-bottom: 10px; }
+        .btn-add { background: var(--primary); color: white; border: none; padding: 8px 15px; border-radius: 20px; cursor: pointer; width: 100%; font-weight: bold; }
+        .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card-bg); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-top: 2px solid var(--primary); z-index: 100; }
+        .btn-order { background: #25d366; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 8px; }
     </style>
 </head>
 <body>
+
     <header>
         <h1>مطعم وكافيه ابن تايه</h1>
-        <p>بغداد - أهلاً وسهلاً بكم</p>
+        <p>بغداد - قائمة الطعام والطلبات المباشرة</p>
     </header>
+
     <div class="container">
-        <div class="welcome-box">
-            <h2>الموقع يعمل الآن بنجاح! 🚀</h2>
-            <p style="margin-top: 10px;">تم تجهيز منصة الطلبات الخاصة بكم بنجاح تام.</p>
-            <a href="https://wa.me/9647700000000" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> تواصل عبر الواتساب للطلب</a>
+        <!-- قسم الوجبات -->
+        <h2 class="category-title"><i class="fas fa-utensils"></i> الوجبات الرئيسية</h2>
+        <div class="menu-grid">
+            <div class="item-card">
+                <div class="item-title">قص لحم عراقي</div>
+                <div class="item-price">8,000 د.ع</div>
+                <button class="btn-add" onclick="addToCart('قص لحم عراقي', 8000)">إضافة للطلب</button>
+            </div>
+            <div class="item-card">
+                <div class="item-title">برغر لحم خاص</div>
+                <div class="item-price">6,000 د.ع</div>
+                <button class="btn-add" onclick="addToCart('برغر لحم خاص', 6000)">إضافة للطلب</button>
+            </div>
+            <div class="item-card">
+                <div class="item-title">شاورما دجاج</div>
+                <div class="item-price">5,000 د.ع</div>
+                <button class="btn-add" onclick="addToCart('شاورما دجاج', 5000)">إضافة للطلب</button>
+            </div>
+        </div>
+
+        <!-- قسم المشروبات والكافيه -->
+        <h2 class="category-title"><i class="fas fa-coffee"></i> الكافيه والمشروبات</h2>
+        <div class="menu-grid">
+            <div class="item-card">
+                <div class="item-title">قهوة تركية</div>
+                <div class="item-price">2,000 د.ع</div>
+                <button class="btn-add" onclick="addToCart('قهوة تركية', 2000)">إضافة للطلب</button>
+            </div>
+            <div class="item-card">
+                <div class="item-title">عصير برتقال فرش</div>
+                <div class="item-price">3,000 د.ع</div>
+                <button class="btn-add" onclick="addToCart('عصير برتقال فرش', 3000)">إضافة للطلب</button>
+            </div>
+            <div class="item-card">
+                <div class="item-title">شاي عراقي مهيل</div>
+                <div class="item-price">1,000 د.ع</div>
+                <button class="btn-add" onclick="addToCart('شاي عراقي مهيل', 1000)">إضافة للطلب</button>
+            </div>
         </div>
     </div>
+
+    <!-- شريط السلة السفلي -->
+    <div class="cart-bar">
+        <div>
+            <span>المجموع: </span>
+            <strong id="total-price" style="color: var(--primary);">0 د.ع</strong>
+        </div>
+        <button class="btn-order" onclick="sendWhatsApp()"><i class="fab fa-whatsapp"></i> إرسال الطلب</button>
+    </div>
+
+    <script>
+        let cart = [];
+        let total = 0;
+        // ضع رقم واتساب المطعم هنا مع الرمز الدولي (مثال: 9647700000000)
+        const phoneNumber = "9647700000000"; 
+
+        function addToCart(name, price) {
+            cart.push({name, price});
+            total += price;
+            document.getElementById('total-price').innerText = total.toLocaleString() + ' د.ع';
+            alert(`تمت إضافة ${name} إلى سلة الطلبات!`);
+        }
+
+        function sendWhatsApp() {
+            if(cart.length === 0) {
+                alert("السلة فارغة! يرجى اختيار وجبات أولاً.");
+                return;
+            }
+            let message = "أهلاً مطعم ابن تايه، أرغب بطلب التالي:\n";
+            cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.name} - ${item.price.toLocaleString()} د.ع\n`;
+            });
+            message += `\n*المجموع الكلي:* ${total.toLocaleString()} د.ع`;
+            
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+    </script>
 </body>
 </html>
