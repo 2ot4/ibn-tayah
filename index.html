@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مطعم وكافيه ابن تايه - Ibn Tayah</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,700;1,400&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --gold-primary: #d4af37;
             --gold-light: #fcf6ba;
             --gold-dark: #aa7c11;
-            --bg-dark: #050505;
-            --card-bg: rgba(20, 20, 20, 0.75);
-            --card-border: rgba(212, 175, 55, 0.25);
+            --bg-dark: #0a0a0a;
+            --card-bg: #141414;
+            --card-border: rgba(212, 175, 55, 0.3);
             --text-light: #f8fafc;
             --text-muted: #a3a3a3;
         }
@@ -24,121 +24,13 @@
             background-color: var(--bg-dark); 
             color: var(--text-light); 
             padding-bottom: 120px;
-            background-image: 
-                radial-gradient(circle at 50% 0%, #1a1405 0%, transparent 50%),
-                radial-gradient(circle at 100% 100%, #100d02 0%, transparent 40%);
-            background-attachment: fixed;
         }
 
-        /* الهيدر الملكي الفاخر */
+        /* الهيدر الملكي */
         header { 
-            background: rgba(10, 10, 10, 0.85); 
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 25px 15px 15px; 
+            background: #111111; 
+            padding: 20px 15px; 
             text-align: center; 
-            border-bottom: 1px solid var(--card-border); 
+            border-bottom: 1px solid var(--gold-primary); 
             position: sticky; 
             top: 0; 
-            z-index: 100;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.9);
-        }
-
-        .logo-title {
-            font-family: 'Amiri', serif;
-            font-size: 2.3rem;
-            background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
-            letter-spacing: 1px;
-        }
-
-        .subtitle {
-            color: var(--gold-light);
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            margin-top: 4px;
-            opacity: 0.85;
-            text-transform: uppercase;
-        }
-
-        .container { max-width: 800px; margin: 0 auto; padding: 15px; }
-
-        .category-header {
-            font-size: 1.4rem;
-            color: var(--gold-primary);
-            margin: 30px 0 15px;
-            font-family: 'Amiri', serif;
-            border-bottom: 1px solid var(--card-border);
-            padding-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
-        }
-
-        /* الشبكة والبطاقات الفخمة */
-        .menu-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
-            gap: 18px; 
-        }
-
-        .item-card { 
-            background: var(--card-bg); 
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--card-border);
-            border-radius: 20px; 
-            padding: 12px; 
-            text-align: center; 
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            overflow: hidden;
-            position: relative;
-        }
-
-        .item-card:hover {
-            transform: translateY(-6px) scale(1.02);
-            border-color: var(--gold-primary);
-            box-shadow: 0 12px 30px rgba(212, 175, 55, 0.25);
-        }
-
-        .img-wrapper {
-            width: 100%;
-            height: 125px;
-            border-radius: 14px;
-            overflow: hidden;
-            margin-bottom: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            position: relative;
-        }
-
-        .item-img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            transition: transform 0.5s ease;
-        }
-
-        .item-card:hover .item-img {
-            transform: scale(1.1);
-        }
-
-        .item-title { 
-            font-weight: 700; 
-            margin-bottom: 4px; 
-            font-size: 0.95rem; 
-            color: var(--text-light);
-        }
-
-        .item-price { 
-            color: var(--gold-primary); 
-            font-weight: 800; 
-            margin-bottom: 12px; 
-            font-size: 0.95rem;
-            text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
-        }
-
-        .btn-add { 
-            background: linear-gradient(135deg, rgba(212, 175, 5
